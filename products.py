@@ -24,7 +24,7 @@ class Product:
             self.quantity += quantity
 
     def is_active(self) -> bool:
-        if self.active == True:
+        if self.active:
             return True
         return False
 
@@ -35,7 +35,7 @@ class Product:
         self.active = False
 
     def show(self):
-        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        return f"\u001b[38;5;209;1m{self.name}\u001b[0m, Price: \u001b[38;5;199;1m{self.price}\u001b[0m, Quantity: \u001b[38;5;199;1m{self.quantity}\u001b[0m"
 
     def buy(self, quantity) -> float:
         if quantity <= 0:
@@ -45,19 +45,3 @@ class Product:
         total_amount = float(self.price * quantity)
         self.quantity -= quantity
         return total_amount
-
-
-bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-mac = Product("MacBook Air M2", price=1450, quantity=100)
-
-print(bose.buy(1))
-print(bose.quantity)
-print(mac.buy(100))
-print(mac.is_active())
-
-print(bose.show())
-print(mac.show())
-
-bose.set_quantity(1000)
-print(bose.show())
-print(bose.quantity)
