@@ -11,6 +11,7 @@ best_buy = store.Store(product_list)
 
 
 def show_menu():
+    """Displays the menu"""
     print("""\u001b[38;5;33;1mStore Menu\u001b[0m
 \u001b[38;5;67;1m----------
 1. List all products in store
@@ -21,6 +22,7 @@ def show_menu():
 
 
 def choose_products():
+    """Asks the user to select a desired product and a quantity, return a tuple of the selected product and quantity"""
     options = ["1", "2", "3"]
     while True:
         try:
@@ -47,6 +49,7 @@ def choose_products():
 
 
 def make_order():
+    """Returns the shopping list and updates the quantity of the products"""
     shopping_list = []
     while True:
         shop_product, quantity = choose_products()
@@ -59,7 +62,7 @@ def make_order():
 
 
 def start():
-    # show_menu()
+    """Displays the menu and prompts the user to select an application mode"""
     while True:
         try:
             show_menu()
