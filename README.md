@@ -15,12 +15,21 @@ git clone https://github.com/mariacristinafadgyas/BestBuy
 ```
 - Navigate to the project directory:
 ```
-- cd bestbuy-app
+cd BestBuy
 ```
 - Run the application:
 ```
 python main.py
 ```
 
-### Author
-Maria Fadgyas
+## Testing
+To test the code, follow these steps:
+
+1. Install the testing framework:
+```
+pip install pytest
+```
+2. Run the tests by executing the following command in the terminal:
+```
+pytest test_product.py
+```
