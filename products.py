@@ -1,6 +1,7 @@
 class Product:
     """Product class - represents each product with attributes such as name, price, quantity and active status as
     well as methods for managing these attributes"""
+
     def __init__(self, name, price, quantity):
         """Creates the instance variables and raises an exception if something is invalid"""
         if not name:
@@ -20,7 +21,7 @@ class Product:
         return float(self.quantity)
 
     def set_quantity(self, quantity):
-        """Setter function for quantity. If the quatity is 0 then it deactivates the product"""
+        """Setter function for quantity. If the quantity is 0 then it deactivates the product"""
         if quantity < 0:
             raise ValueError("\u001b[38;5;9;1mQuantity cannot be 0!\u001b[0m")
         if self.quantity == 0:

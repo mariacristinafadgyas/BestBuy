@@ -2,16 +2,10 @@ import sys
 import products
 import store
 
-# setup initial stock of inventory
-product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
-                products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                products.Product("Google Pixel 7", price=500, quantity=250)
-                ]
-best_buy = store.Store(product_list)
-
 
 def show_menu():
     """Displays the menu"""
+
     print("""\u001b[38;5;33;1mStore Menu\u001b[0m
 \u001b[38;5;67;1m----------
 1. List all products in store
@@ -21,13 +15,20 @@ def show_menu():
 \u001b[0m""")
 
 
-def choose_products():
-    """Asks the user to select a desired product and a quantity, return a tuple of the selected product and quantity"""
+def choose_products(product_list):
+    """Asks the user to select a desired product and a quantity, return a tuple of
+     the selected product and quantity"""
+
+    print("\u001b[38;5;199;1m-----------------------------------------------------------\u001b[0m")
+    for index, product in enumerate(product_list, start=1):
+        print(f"{index}. {product.show()}")
+    print("\u001b[38;5;199;1m-----------------------------------------------------------\u001b[0m")
+
     options = ["1", "2", "3"]
     while True:
         try:
-            shop_product = input("\u001b[38;5;98;1mWhich product # do you want? \u001b[38;5;184m(Press Enter to quit) "
-                                 "\u001b[0m")
+            shop_product = input("\u001b[38;5;98;1mWhich product # do you want?"
+                                 " \u001b[38;5;184m(Press Enter to quit): \u001b[0m")
             if shop_product == "":
                 return None, None
             if shop_product in options:
@@ -38,7 +39,7 @@ def choose_products():
                     if 0 < quantity <= selected_product.quantity:
                         return selected_product, quantity
                     else:
-                        print(f"\u001b[38;5;9;1mPlease enter a valid quantity (1 to {selected_product.quantity}"
+                        print(f"\u001b[38;5;9;1mPlease enter a valid quantity (0 to {selected_product.quantity}"
                               f")\u001b[0m")
                 except ValueError:
                     print("\u001b[38;5;9;1mPlease enter a number for the quantity!\u001b[0m")
@@ -48,21 +49,24 @@ def choose_products():
             print("\u001b[38;5;9;1mPlease try again!\u001b[0m")
 
 
-def make_order():
+def make_order(product_list):
     """Returns the shopping list and updates the quantity of the products"""
+
     shopping_list = []
     while True:
-        shop_product, quantity = choose_products()
+        shop_product, quantity = choose_products(product_list)
         if shop_product is None and quantity is None:
             break
         shopping_list.append((shop_product, quantity))
         shop_product.buy(quantity)
+        # shop_product.set_quantity(quantity)
         print("\u001b[38;5;51;1mProduct added to list!\u001b[0m")
     return shopping_list
 
 
-def start():
+def start(product_list, best_buy):
     """Displays the menu and prompts the user to select an application mode"""
+
     while True:
         try:
             show_menu()
@@ -79,7 +83,7 @@ def start():
                           f"\u001b[38;5;148;1mitems in the store.\u001b[0m")
                     print("\u001b[38;5;199;1m-----------------------------------------------------------\u001b[0m")
                 elif user_input == 3:
-                    shopping_list = make_order()
+                    shopping_list = make_order(product_list)
                     print("\u001b[38;5;199;1m-----------------------------------------------------------\u001b[0m")
                     print(f"\u001b[38;5;64;1mOrder made! Total payment: \u001b[38;5;213m$"
                           f"{best_buy.order(shopping_list)}\u001b[0m")
@@ -90,5 +94,17 @@ def start():
             print("\u001b[38;5;9;1mPlease select a number between 1 and 4!!!\u001b[0m")
 
 
+def main():
+    """Set up the initial stock and call up the other functions in the programme"""
+
+    product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
+                    products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+                    products.Product("Google Pixel 7", price=500, quantity=250)
+                    ]
+    best_buy = store.Store(product_list)
+
+    start(product_list, best_buy)
+
+
 if __name__ == "__main__":
-    start()
+    main()

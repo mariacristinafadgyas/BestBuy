@@ -1,6 +1,7 @@
 class Store:
     """The Store class is initialised by a list of products and contains methods for adding and removing products,
     for retrieving the total quantity of items, for retrieving all active products and for processing orders."""
+
     def __init__(self, list_of_products):
         """Creates the instance variable list of products"""
         self.list_of_products = list_of_products
