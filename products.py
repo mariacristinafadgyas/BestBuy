@@ -1,6 +1,7 @@
 class Product:
-    """Product class - represents each product with attributes such as name, price, quantity and active status as
-    well as methods for managing these attributes"""
+    """Product class - represents each product with attributes such as name,
+     price, quantity and active status as well as methods for managing these
+      attributes"""
 
     def __init__(self, name, price, quantity):
         """Creates the instance variables and raises an exception if something is invalid"""
@@ -45,7 +46,8 @@ class Product:
 
     def show(self):
         """Displays info (name, price and quantity) on screen"""
-        return (f"\u001b[38;5;209;1m{self.name}\u001b[0m, Price: \u001b[38;5;199;1m{self.price}\u001b[0m, Quantity: "
+        return (f"\u001b[38;5;209;1m{self.name}\u001b[0m, Price:"
+                f" \u001b[38;5;199;1m{self.price}\u001b[0m, Quantity: "
                 f"\u001b[38;5;199;1m{self.quantity}\u001b[0m")
 
     def buy(self, quantity) -> float:
@@ -57,3 +59,63 @@ class Product:
         total_amount = float(self.price * quantity)
         self.quantity -= quantity
         return total_amount
+
+
+class NonStockedProduct(Product):
+    """Product subclass for products that do not require quantity information.
+    The quantity attribute is set to 0"""
+
+    def __init__(self, name, price):
+        """Uses instance variables of the parent class and sets the quantity to be always 0"""
+        super().__init__(name, price, quantity=0)
+        self.active = True
+
+    def set_quantity(self, quantity):
+        """Raises an error because the subclass does not keep track of
+         the quantity"""
+        raise NotImplementedError("Quantity cannot be set for non-physical products")
+
+    def buy(self, quantity: int) -> float:
+        """Overrides the buy function, as the subclass does not keep track
+         of the quantity for this type of product"""
+        total_amount = float(self.price * quantity)
+        return total_amount
+
+    def show(self):
+        """Displays info (name & price) on screen"""
+        return f"\u001b[38;5;209;1m{self.name}\u001b[0m, Price: \u001b[38;5;199;1m{self.price}\u001b[0m"
+
+
+class LimitedProduct(Product):
+    """Product subclass for products that can only be purchased once"""
+
+    def __init__(self, name, price, quantity, maximum):
+        """Uses instance variables of the parent class and triggers an
+         exception if the maximum purchase limit is less than 0"""
+        super().__init__(name, price, quantity)
+        if maximum <= 0:
+            raise ValueError("\u001b[38;5;9;1mMaximum purchase limit must be positive\u001b[0m")
+        self.maximum = maximum
+
+    def buy(self, quantity) -> float:
+        """Overwrites the buy function, as the subclass enforces a maximum buy limit"""
+        if quantity > self.maximum:
+            raise ValueError(f"\u001b[38;5;9;1mCannot purchase more than"
+                             f" {self.maximum} of this product\u001b[0m")
+        if quantity > self.quantity:
+            raise ValueError("\u001b[38;5;9;1mNot enough quantity available\u001b[0m")
+        self.quantity -= quantity
+        return self.price * quantity
+
+    def show(self):
+        """Displays info (name, price, quantity and maximum purchase) on screen"""
+        return (f"\u001b[38;5;209;1m{self.name}\u001b[0m, Price: \u001b[38;5;199;1m{self.price}\u001b[0m,"
+                f" Quantity: \u001b[38;5;199;1m{self.quantity}\u001b[0m, Maximum purchase:"
+                f" \u001b[38;5;199;1m{self.maximum}\u001b[0m")
+
+
+# wl = NonStockedProduct("Windows License", price=125)
+# shipping = LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
+# print(wl.show())
+# shipping.buy(2)
+# print(shipping.show())

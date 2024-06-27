@@ -24,7 +24,7 @@ def choose_products(product_list):
         print(f"{index}. {product.show()}")
     print("\u001b[38;5;199;1m-----------------------------------------------------------\u001b[0m")
 
-    options = ["1", "2", "3"]
+    options = ["1", "2", "3", "4", "5"]
     while True:
         try:
             shop_product = input("\u001b[38;5;98;1mWhich product # do you want?"
@@ -44,7 +44,7 @@ def choose_products(product_list):
                 except ValueError:
                     print("\u001b[38;5;9;1mPlease enter a number for the quantity!\u001b[0m")
             else:
-                print("\u001b[38;5;9;1mPlease select a number from 1 to 3\u001b[0m")
+                print("\u001b[38;5;9;1mPlease select a number from 1 to 5\u001b[0m")
         except ValueError:
             print("\u001b[38;5;9;1mPlease try again!\u001b[0m")
 
@@ -99,7 +99,9 @@ def main():
 
     product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
                     products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                    products.Product("Google Pixel 7", price=500, quantity=250)
+                    products.Product("Google Pixel 7", price=500, quantity=250),
+                    products.NonStockedProduct("Windows License", price=125),
+                    products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
                     ]
     best_buy = store.Store(product_list)
 
