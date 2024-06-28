@@ -34,15 +34,27 @@ class Store:
         """Gets a list of tuples and returns the total price of the order"""
         total_price = 0.0
         for product, quantity in shopping_list:
-            total_price += product.price * quantity
+            total_price += product.buy(quantity)
         return total_price
 
+
+# import promotions
+# import products
 # product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
 #                 products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
 #                 products.Product("Google Pixel 7", price=500, quantity=250),
+#                 products.NonStockedProduct("Windows License", price=125),
+#                 products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
 #                 ]
 #
-# store = Store(product_list)
-# products = store.get_all_products()
-# print(store.get_total_quantity())
-# print(store.order([(products[0], 1), (products[1], 2)]))
+# second_half_price = promotions.SecondHalfPrice("Second Half price!")
+# third_one_free = promotions.ThirdOneFree("Third One Free!")
+# thirty_percent = promotions.PercentDiscount("30% off!", percent=20)
+#
+# product_list[0].set_promotion(third_one_free)
+# product_list[1].set_promotion(thirty_percent)
+# product_list[2].set_promotion(second_half_price)
+#
+# print(product_list[0].buy(3))
+# print(product_list[1].buy(1))
+# print(product_list[2].buy(2))
