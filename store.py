@@ -18,7 +18,7 @@ class Store:
         """Returns how many products are in the store in total"""
         total_quantity = 0
         for item in self.list_of_products:
-            total_quantity += item.quantity
+            total_quantity += item._quantity
         return total_quantity
 
     def get_all_products(self):
@@ -36,6 +36,13 @@ class Store:
         for product, quantity in shopping_list:
             total_price += product.buy(quantity)
         return total_price
+
+    def __contains__(self, product):
+        return product in self.list_of_products
+
+    def __add__(self, other):
+        combined_products = self.list_of_products + other.list_of_products
+        return Store(combined_products)
 
 
 # import promotions
@@ -58,3 +65,27 @@ class Store:
 # print(product_list[0].buy(3))
 # print(product_list[1].buy(1))
 # print(product_list[2].buy(2))
+# import products
+# mac =  products.Product("MacBook Air M2", price=1450, quantity=100)
+# bose = products.Product("Bose QuietComfort Earbuds", price=250, quantity=500)
+# pixel = products.Product("Google Pixel 7", price=500, quantity=250)
+#
+# best_buy = Store([mac, bose])
+# mac.price = -100         # Should give error
+# print(mac)               # Should print `MacBook Air M2, Price: $1450 Quantity:100`
+# print(mac > bose)        # Should print True
+# print(mac < bose)        # Should print True
+# print(mac in best_buy)   # Should print True
+# print(pixel in best_buy) # Should print False
+#
+# product1 = products.Product("iPhone", 1450, 100)
+# product2 = products.Product("Samsung Galaxy", 1200, 50)
+# product3 = products.Product("Google Pixel", 900, 70)
+# product4 = products.Product("OnePlus", 600, 30)
+# product5 = products.Product("Huawei", 500, 20)
+#
+# store1 = Store([product1, product2])
+# store2 = Store([product3, product4, product5])
+#
+# # Combine two stores
+# combined_store = store1 + store2

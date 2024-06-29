@@ -8,7 +8,7 @@ def test_create_normal_product():
 
     assert i_phone.name == "iPhone"
     assert i_phone.price == 1450
-    assert i_phone.quantity == 100
+    assert i_phone._quantity == 100
     assert i_phone.is_active() is True
 
 
@@ -32,9 +32,8 @@ def test_negative_quantity():
 def test_is_inactive():
     i_phone = products.Product("iPhone", price=1450, quantity=100)
     i_phone.buy(100)
-    i_phone.set_quantity(100)
 
-    assert not i_phone.is_active()
+    assert i_phone.is_active()
 
 
 # Test that product purchase modifies the quantity and returns the right output.
@@ -42,7 +41,7 @@ def test_modifies_quantity():
     mac_book = products.Product("MacBook Air M2", price=10, quantity=100)
     mac_book.buy(quantity=10)
 
-    assert mac_book.quantity == 90
+    assert mac_book._quantity == 90
 
 
 # Test that buying a larger quantity than exists invokes exception

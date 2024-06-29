@@ -27,7 +27,7 @@ def choose_products(product_list):
 
     delimiter()
     for index, product in enumerate(product_list, start=1):
-        print(f"{index}. {product.show()}")
+        print(f"{index}. {product}")
     delimiter()
 
     options = ["1", "2", "3"]
@@ -44,11 +44,11 @@ def choose_products(product_list):
                 selected_product = product_list[product_index]
                 try:
                     quantity = int(input("\u001b[38;5;113;1mWhich quantity do you want? \u001b[0m"))
-                    if 0 < quantity <= selected_product.quantity:
+                    if 0 < quantity <= selected_product._quantity:
                         return selected_product, quantity
                     else:
-                        print(f"\u001b[38;5;9;1mPlease enter a valid quantity (0 to {selected_product.quantity}"
-                              f")\u001b[0m")
+                        print(f"\u001b[38;5;9;1mPlease enter a valid quantity (0 to"
+                              f" {selected_product._quantity})\u001b[0m")
                 except ValueError:
                     print("\u001b[38;5;9;1mPlease enter a number for the quantity!\u001b[0m")
             elif shop_product == "4":
@@ -61,7 +61,8 @@ def choose_products(product_list):
                     print("\u001b[38;5;9;1mPlease enter a number for the quantity!\u001b[0m")
             elif shop_product == "5":
                 if option_5_selected:
-                    print("\u001b[38;5;9;1mOption 5 can only be selected once. Please select another option!\u001b[0m")
+                    print("\u001b[38;5;9;1mOption 5 can only be selected once. Please"
+                          " select another option!\u001b[0m")
                     continue
                 else:
                     product_index = 4
@@ -109,7 +110,7 @@ def start(product_list, best_buy):
                 if user_input == 1:
                     delimiter()
                     for index, product in enumerate(product_list, start=1):
-                        print(f"{index}. {product.show()}")
+                        print(f"{index}. {product}")
                     delimiter()
                 elif user_input == 2:
                     delimiter()
