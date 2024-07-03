@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-# import products
+import products
 
 
 class Promotion(ABC):
@@ -40,14 +40,8 @@ class SecondHalfPrice(Promotion):
         super().__init__(name)
 
     def apply_promotion(self, product, quantity) -> float:
-        if quantity % 2 == 0:
-            full_price_items = quantity // 2
-            half_price_items = quantity // 2
-        else:
-            full_price_items = quantity // 2 + 1
-            half_price_items = quantity // 2
-        total_price = (full_price_items * product.price) + (half_price_items * product.price / 2)
-        return total_price
+        promo = (quantity // 2) * (product.price / 2)
+        return (quantity * product.price) - promo
 
 
 class ThirdOneFree(Promotion):
@@ -62,11 +56,15 @@ class ThirdOneFree(Promotion):
         total_price = full_price_items * product.price
         return total_price
 
+def main():
+    win_license = products.NonStockedProduct("Windows License", price=125)
+    shipping = products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
+    second_half_price = SecondHalfPrice("Second Half price!")
+    win_license.set_promotion(second_half_price)
+    print(win_license)
+    print(win_license.buy(2))
+    print(shipping)
+    print(shipping.buy(2))
 
-# win_license = products.NonStockedProduct("Windows License", price=125)
-# shipping = products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
-# second_half_price = SecondHalfPrice("Second Half price!")
-# win_license.set_promotion(second_half_price)
-# print(win_license.show())
-# print(win_license.buy(2))
-# print(shipping.show())
+if __name__ == "__main__":
+    main()

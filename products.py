@@ -145,7 +145,8 @@ class LimitedProduct(Product):
          exception if the maximum purchase limit is less than 0"""
         super().__init__(name, price, quantity)
         if maximum <= 0:
-            raise ValueError("\u001b[38;5;9;1mMaximum purchase limit must be positive\u001b[0m")
+            raise ValueError("\u001b[38;5;9;1mMaximum purchase limit must be"
+                             " positive\u001b[0m")
         self.maximum = maximum
 
     def buy(self, quantity) -> float:
@@ -173,10 +174,15 @@ class LimitedProduct(Product):
                 f"\u001b[38;5;199;1m1\u001b[0m per order, Promotion: "
                 f"\u001b[38;5;199;1m{promotion_name}\u001b[0m")
 
-# mac =  Product("MacBook Air M2", price=1450, quantity=100)
-# windows_licence = NonStockedProduct("Windows License", price=125)
-# shipping = LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
-# print(windows_licence)
-# print(windows_licence.buy(1))
-# print(shipping)
-# print(mac)
+
+def main():
+    mac =  Product("MacBook Air M2", price=1450, quantity=100)
+    windows_licence = NonStockedProduct("Windows License", price=125)
+    shipping = LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
+    print(windows_licence)
+    print(windows_licence.buy(1))
+    print(shipping)
+    print(mac)
+
+if __name__ == "__main__":
+    main()
